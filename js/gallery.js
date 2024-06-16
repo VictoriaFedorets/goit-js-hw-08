@@ -69,15 +69,6 @@ const list = document.querySelector('.gallery');
 list.insertAdjacentHTML('afterbegin', createMarkup(images));
 list.addEventListener('click', handlerGetImages);
 
-function handlerGetImages(evt) {
-  if (evt.currentTarget === evt.target) {
-    return;
-  }
-  const parent = evt.target.closest('.gallery-image');
-
-  console.log(parent);
-}
-
 function createMarkup(arr) {
   return arr
     .map(
@@ -96,4 +87,20 @@ function createMarkup(arr) {
     )
     .join('');
 }
-list.insertAdjacentHTML('afterbegin', createMarkup(images));
+
+function handlerGetImages(evt) {
+  if (evt.currentTarget === evt.target) {
+    return;
+  }
+  const parent = evt.target.closest('.gallery-image');
+  const currentOriginal = parent.dataset.source;
+  const currentDescription = parent.dataset.description;
+
+  const instance = basicLightbox.create(`
+    <div class="modal">
+      <img class="modal-img" src="${currentOriginal}" alt="${currentDescription}" width="1112" height="640">
+    </div>
+  `);
+
+  instance.show();
+}
