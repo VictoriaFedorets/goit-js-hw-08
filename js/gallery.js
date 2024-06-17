@@ -89,6 +89,7 @@ function createMarkup(arr) {
 }
 
 function handlerGetImages(evt) {
+  evt.preventDefault();
   if (evt.currentTarget === evt.target) {
     return;
   }
